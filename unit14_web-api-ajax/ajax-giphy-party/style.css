@@ -1,0 +1,68 @@
+:root {
+    --color-pink: rgb(243, 120, 139);
+    --color-green: #37af65;
+    --color-lavender: rgba(196, 203, 247, 0.5);
+    --color-black: #000;
+    --color-teal: rgba(126, 247, 237, 1);
+}
+
+body {
+    background: var(--color-black);
+    color: white;
+}
+
+.container {
+    width: 100%;
+    margin: 3rem auto 0 auto;
+    text-align: center;
+}
+
+.img-container {
+    margin: 10px;
+    padding: 0px;
+    display: inline-block;
+}
+
+.img-size {
+    width: 350px;
+    height: 250px;
+    border-radius: 10px;
+}
+
+.text-field {
+    border-radius: 10px;
+    height: 15px;
+    padding: 0.375rem 0.75rem;
+    border: 1px solid white;
+    margin: 2px;
+}
+
+
+.title {
+    text-shadow: 1px 1px 1px var(--color-teal);
+    margin: 0px;
+}
+
+.subtitle {
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+
+
+.btn {
+    border-radius: 10px;
+    background: var(--color-green);
+    height: 29px;
+    padding: 0.375rem 0.75rem;
+    border: 1px solid white;
+    color: white;
+    margin: 2px;
+  }
+
+  .btn-remove {
+    background: var(--color-pink); 
+  }
+
+  hr {
+    margin: 30px;
+  }

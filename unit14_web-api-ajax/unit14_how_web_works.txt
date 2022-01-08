@@ -1,0 +1,46 @@
+Unit 14.1  - How Web Works Exercise
+Part One: Solidify Terminology
+
+What is HTTP?
+
+Hyper Text Transfer Protocol governs how browsers and servers communicate
+
+What is a URL?
+
+URL stands for Uniform Resource Locator, which is a web address for internet resources.
+
+What is DNS?
+
+DNS shands for Domain Name System, this is a system that takes hostname and URLS and converts them into IP addresses.
+
+What is a query string?
+
+The query string allows you to pass key-value pairs into the URL, in a specific format ?key1=value1&key2=value2...
+
+What are two HTTP verbs and how are they different?
+
+GET - get data from the server without side effects
+POST - send data to the server with side effects that may change data on server
+
+What is an HTTP request?
+
+An HTTP request is a request from a client to a server which follows the HTTP protocol.
+
+What is an HTTP response?
+
+An HTTP response is a response from a server to a client which follows the HTTP protocol.
+
+What is an HTTP header? Give a couple examples of request and response headers you have seen.
+
+Headers gives information about the request or the response. Here are some examples:
+Request headers include hostname you’re asking about, date your browser thinks it is, language your browser wants information in, any cookies that server has sent
+
+Response headers include content type (typically text/html for web pages), date/time the server thinks it is, type of content sending back, any cookies server wants to set, any caching information
+
+What happens when you type a URL in a browser?
+
+1. The browser “resolves” the name into an IP address using DNS
+2. The browser makes a get request to that IP address
+3. The server sends a response with status code
+4. The browser makes a DOM from that HTML, and finds any other resources needed (images, CSS, JavaScript, etc)
+5. The browser makes separate HTTP requests for those resources and receives response from the server for each
