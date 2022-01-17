@@ -29,6 +29,8 @@ const $navLogOut = $("#nav-logout");
 const $userProfile = $("#user-profile");
 const $editUserNameForm = $("#edit-user-name-form");
 
+
+
 /** [modified by CW] To make it easier for individual components to show just themselves, this
  * is a useful function that hides pretty much everything on the page. After
  * calling this, individual components can re-show just what they want.
@@ -44,6 +46,7 @@ function hidePageComponents() {
     $favorites,
     $myStories,
     $userProfile,
+
   ];
   components.forEach(c => c.hide());
 }
@@ -59,6 +62,7 @@ async function start() {
 
   // if we got a logged-in user
   if (currentUser) updateUIOnUserLogin();
+
 }
 
 // Once the DOM is entirely loaded, begin the app

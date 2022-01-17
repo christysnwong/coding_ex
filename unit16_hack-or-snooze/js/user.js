@@ -27,6 +27,8 @@ async function login(evt) {
 
     saveUserCredentialsInLocalStorage();
     updateUIOnUserLogin();
+    location.reload();
+
 
   } catch(err) {
     // catch error if username or password is incorrect
@@ -61,6 +63,7 @@ async function signup(evt) {
 
     saveUserCredentialsInLocalStorage();
     updateUIOnUserLogin();
+    location.reload();
 
     $signupForm.trigger("reset");
 
@@ -96,15 +99,7 @@ function logout(evt) {
 $navLogOut.on("click", logout);
 
 
-// [CW] Get user's info for user's profile page
-function getUserInfo() {
-  console.debug("getUserInfo");
 
-  $("#user-name").text(`Name: ${currentUser.name}`);
-  $("#user-username").text(`Username: ${currentUser.username}`);
-  $("#account-created").text(`Account Created: ${currentUser.createdAt.slice(0, 10)}`);
-
-}
 
 
 /******************************************************************************
@@ -160,6 +155,16 @@ function updateUIOnUserLogin() {
   $signupForm.hide();
 }
 
+// [CW] Get user's info for user's profile page
+function getUserInfo() {
+  console.debug("getUserInfo");
+
+  $("#user-name").text(`Name: ${currentUser.name}`);
+  $("#user-username").text(`Username: ${currentUser.username}`);
+  $("#account-created").text(`Account Created: ${currentUser.createdAt.slice(0, 10)}`);
+
+}
+
 // [CW] shows edit form for user's name when edit-icon is clicked on user's profile page
 
 function showEditUserNameForm(evt) {
@@ -182,13 +187,11 @@ async function editUserName(evt) {
 
   const newName = $("#edit-user-name").val();
 
-  const response = await currentUser.updateUserName(currentUser.username, newName);
+  const responseMsg = await currentUser.updateUserName(currentUser.username, newName);
+  alert(responseMsg);
 
-  if (response.status === 200) {
-    currentUser.name = newName;
-    getUserInfo();
-  }
-
+  currentUser.name = newName;
+  getUserInfo();
   
   $editUserNameForm.hide();
   $editUserNameForm.trigger("reset");
@@ -207,3 +210,18 @@ function editUserCancel(evt) {
 }
 
 $editUserNameForm.on("click", ".cancel", editUserCancel);
+
+
+function addObserver() {
+  // experiment Intersection Observer
+
+  const observer = new IntersectionObserver(function(entries) {
+    if(entries[0].isIntersecting === true) {
+      getAndShowMoreStories();
+    }
+      
+  }, { threshold: [1] });
+
+  observer.observe(document.querySelector("#all-stories-list").lastChild);
+  
+}

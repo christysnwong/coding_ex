@@ -47,25 +47,64 @@ class StoryList {
    *  - returns the StoryList instance.
    */
 
-  static async getStories() {
+  static async getStories(limit) {
     // Note presence of `static` keyword: this indicates that getStories is
     //  **not** an instance method. Rather, it is a method that is called on the
     //  class directly. Why doesn't it make sense for getStories to be an
     //  instance method?
 
+    const skip = 0
+
     // query the /stories endpoint (no auth required)
     const response = await axios({
       url: `${BASE_URL}/stories`,
       method: "GET",
+      params: { 
+        skip,
+        limit
+      }
+
     });
+
+     
 
     // turn plain old story objects from API into instances of Story class
     const stories = response.data.stories.map(story => new Story(story));
-
+    
     
     // build an instance of our own class using the new array of stories
     return new StoryList(stories);
   }
+
+  // [CW] get more more stories from the API
+
+  async getMoreStories(limit, skipCounter) {
+
+    const skip = limit*skipCounter;
+    
+    // query the /stories endpoint (no auth required)
+    const response = await axios({
+      url: `${BASE_URL}/stories`,
+      method: "GET",
+      params: { 
+        skip,
+        limit
+      }
+    });
+
+     
+
+    // turn plain old story objects from API into instances of Story class
+    const moreStories = response.data.stories.map(story => new Story(story));
+
+    this.stories.push(...moreStories);
+    
+    // build an instance of our own class using the new array of stories
+    return new StoryList(this.stories);
+  }
+
+
+
 
   /**  [CW] Adds story data to API, makes a Story instance, adds it to story list.
    * - user - the current instance of User who will post the story
@@ -110,19 +149,23 @@ class StoryList {
         }
       });
   
-      alert("This story is removed successfully!");
 
       this.stories = this.stories.filter(story => story.storyId !== storyId);
   
       user.ownStories = user.ownStories.filter(story => story.storyId !== storyId);
       user.favorites = user.favorites.filter(story => story.storyId !== storyId);
 
+      return "This story is removed successfully!";
+
     } catch(err) {
       let statusCode = err.response.data.error.status;
 
       if (statusCode >= 400 && statusCode < 500) {
-        alert("Sorry. Story update is unsuccessful.");
+        return "Sorry. Story update is unsuccessful.";
+      } else {
+        return "Errors occured."
       }
+
     }
     
 
@@ -145,7 +188,7 @@ class StoryList {
         }
       });
 
-      alert("Story update is successful!");
+      
       
       const edittedStory = new Story(response.data.story);
 
@@ -157,13 +200,18 @@ class StoryList {
       user.ownStories.splice(ownStoriesIdx, 1, edittedStory);
       user.favorites.splice(favIdx, 1, edittedStory);
 
+      return "Story update is successful!";
 
     } catch(err) {
       let statusCode = err.response.data.error.status;
 
       if (statusCode >= 400 && statusCode < 500) {
-        alert("Sorry. Story update is unsuccessful.");
+        return "Sorry. Story update is unsuccessful.";
+      } else {
+        return "Errors occured."
       }
+
+
     }
     
   }
@@ -329,19 +377,16 @@ class User {
         data: { token , "user": { "name": newName } },
       });
 
-      if (response.status === 200) {
-        alert("Name is successfully updated!");
-      }
-
-      return response;
-
+      return "Name is successfully updated!";
 
     } catch(err) {
       let statusCode = err.response.data.error.status;
 
       if (statusCode >= 400 && statusCode < 500) {
-        alert("Bad request");
+        return "Bad request";
       
+      } else {
+        return "Errors occured!";
       }
 
     }

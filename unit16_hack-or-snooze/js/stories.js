@@ -2,15 +2,37 @@
 
 // This is the global list of the stories, an instance of StoryList
 let storyList;
+let storyLimit = 25;
 
 /** Get and show stories when site first loads. */
 
 async function getAndShowStoriesOnStart() {
-  storyList = await StoryList.getStories();
+  storyList = await StoryList.getStories(storyLimit);
   $storiesLoadingMsg.remove();
 
   putStoriesOnPage();
 }
+
+// [CW] get and show more story entries 
+
+async function getAndShowMoreStories() {
+  console.debug("getAndShowMoreStories");
+
+  const skipCounter = storyList.stories.length / storyLimit;
+
+  if (skipCounter % 1 !== 0) {
+    alert("No more stories to show!");
+    return;
+  }
+  
+  storyList = await storyList.getMoreStories(storyLimit, skipCounter);
+  $storiesLoadingMsg.remove();
+
+  alert(`Loading the next ${storyLimit} stories...`);
+
+  putStoriesOnPage();
+}
+
 
 /** [modified by CW]
  * A render method to render HTML for an individual Story instance
@@ -20,7 +42,7 @@ async function getAndShowStoriesOnStart() {
  */
 
 function generateStoryMarkup(story, showDeleteBtn = false, showEditBtn = false) {
-  // console.debug("generateStoryMarkup", story);
+  console.debug("generateStoryMarkup");
 
   const hostName = story.getHostName();
 
@@ -82,6 +104,8 @@ function putStoriesOnPage() {
 
   $allStoriesList.empty();
 
+
+
   // loop through all of our stories and generate HTML for them
   for (let story of storyList.stories) {
     const $story = generateStoryMarkup(story);
@@ -89,6 +113,9 @@ function putStoriesOnPage() {
   }
 
   $allStoriesList.show();
+  
+  addObserver();
+
 }
 
 // [CW] Submit new story to API, add story to user's storylist, and create an entry on HTML
@@ -165,7 +192,8 @@ async function editStoryData(evt) {
   const url = $("#edit-story-url").val();
   
   // submit to API
-  await storyList.updateStory(currentUser, { storyId, title, author, url } );
+  let responseMsg = await storyList.updateStory(currentUser, { storyId, title, author, url } );
+  alert(responseMsg);
 
   // refresh the my stories page
   putUserStoriesOnPage();
@@ -187,7 +215,7 @@ function putFavoritesListOnPage() {
 
   for (let story of currentUser.favorites) {
     const $story = generateStoryMarkup(story);
-    $favorites.append($story);
+    $favorites.prepend($story);
 
   }
 
@@ -231,7 +259,7 @@ function putUserStoriesOnPage() {
 
   for (let story of currentUser.ownStories) {
     const $story = generateStoryMarkup(story, true, true);
-    $myStories.append($story);
+    $myStories.prepend($story);
 
   }
 
@@ -251,7 +279,8 @@ async function deleteStory(evt) {
   const $closestLi = $(evt.target).closest("li");
   const storyId = $closestLi.attr("id");
   
-  await storyList.removeStory(currentUser, storyId);
+  const responseMsg = await storyList.removeStory(currentUser, storyId);
+  alert(responseMsg);
 
   $closestLi.remove();
 
