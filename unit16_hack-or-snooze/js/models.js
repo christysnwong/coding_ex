@@ -66,8 +66,6 @@ class StoryList {
 
     });
 
-     
-
     // turn plain old story objects from API into instances of Story class
     const stories = response.data.stories.map(story => new Story(story));
     
@@ -78,9 +76,7 @@ class StoryList {
 
   // [CW] get more more stories from the API
 
-  async getMoreStories(limit, skipCounter) {
-
-    const skip = limit*skipCounter;
+  async getMoreStories(limit, skip) {
     
     // query the /stories endpoint (no auth required)
     const response = await axios({
@@ -91,9 +87,7 @@ class StoryList {
         limit
       }
     });
-
-     
-
+   
     // turn plain old story objects from API into instances of Story class
     const moreStories = response.data.stories.map(story => new Story(story));
 
@@ -131,7 +125,7 @@ class StoryList {
 
     const story = new Story(response.data.story);
     this.stories.unshift(story);
-    user.ownStories.unshift(story);
+    user.ownStories.push(story);
    
     return story;
   }
@@ -187,7 +181,6 @@ class StoryList {
           }
         }
       });
-
       
       
       const edittedStory = new Story(response.data.story);

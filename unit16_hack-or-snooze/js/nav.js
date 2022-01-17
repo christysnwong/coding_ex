@@ -75,11 +75,11 @@ $navMyStories.on("click", navMyStoriesClick);
 
 // [CW] Show user's info
 
-function navUserProfile(evt) {
+function navUserProfileClick(evt) {
   console.debug("navUserProfile");
   hidePageComponents();
   getUserInfo();
   $userProfile.show();
 }
 
-$navUserProfile.on("click", navUserProfile);
+$navUserProfile.on("click", navUserProfileClick);

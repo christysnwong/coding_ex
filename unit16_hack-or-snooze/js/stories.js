@@ -2,7 +2,7 @@
 
 // This is the global list of the stories, an instance of StoryList
 let storyList;
-let storyLimit = 25;
+let storyLimit = 10;
 
 /** Get and show stories when site first loads. */
 
@@ -18,14 +18,16 @@ async function getAndShowStoriesOnStart() {
 async function getAndShowMoreStories() {
   console.debug("getAndShowMoreStories");
 
-  const skipCounter = storyList.stories.length / storyLimit;
+  const skipEntries = storyList.stories.length;
+  
+  storyList = await storyList.getMoreStories(storyLimit, skipEntries);
 
-  if (skipCounter % 1 !== 0) {
-    alert("No more stories to show!");
+  if (skipEntries === storyList.stories.length) {
+
+    alert(`There are only a total of ${storyList.stories.length} stories. No more stories to show.`);
     return;
   }
-  
-  storyList = await storyList.getMoreStories(storyLimit, skipCounter);
+
   $storiesLoadingMsg.remove();
 
   alert(`Loading the next ${storyLimit} stories...`);
@@ -97,14 +99,13 @@ function getEditBtnHTML() {
   </span>`; 
 } 
 
-/** Gets list of stories from server, generates their HTML, and puts on page. */
+/** [modified by CW] Gets list of stories from server, generates their HTML, and puts on page. */
+// also adds observer to the last element of the story list.
 
 function putStoriesOnPage() {
   console.debug("putStoriesOnPage");
 
   $allStoriesList.empty();
-
-
 
   // loop through all of our stories and generate HTML for them
   for (let story of storyList.stories) {
@@ -114,6 +115,8 @@ function putStoriesOnPage() {
 
   $allStoriesList.show();
   
+  // add an observer to last element of the story list. 
+  // if the page is scrolled to the bottom and shows last element, it will load more stories
   addObserver();
 
 }
@@ -136,6 +139,11 @@ async function submitNewStory(evt) {
   // regenerate the list of stories on the page
   const $story = generateStoryMarkup(story);
   $allStoriesList.prepend($story);
+
+  // $myStories.prepend($story);
+
+  // putUserStoriesOnPage();
+  // putStoriesOnPage();
 
   $submitStoryForm.slideUp("slow");
   $submitStoryForm.trigger("reset");
@@ -213,14 +221,14 @@ function putFavoritesListOnPage() {
 
   $favorites.empty();
 
+  if (currentUser.favorites.length === 0) {
+    $favorites.text("No favorites added yet!");
+  }
+
   for (let story of currentUser.favorites) {
     const $story = generateStoryMarkup(story);
     $favorites.prepend($story);
 
-  }
-
-  if (currentUser.favorites.length === 0) {
-    $favorites.text("No favorites added yet!");
   }
 
   $favorites.show();
@@ -249,7 +257,6 @@ async function toggleStoryFavorite(evt) {
 $storiesLists.on("click", ".star", toggleStoryFavorite);
 
 
-
 // [CW] Put user's stories on page
 
 function putUserStoriesOnPage() {
@@ -257,16 +264,16 @@ function putUserStoriesOnPage() {
 
   $myStories.empty();
 
+  if (currentUser.ownStories.length === 0) {
+    $myStories.text("No stories added by user yet!");
+  }
+
   for (let story of currentUser.ownStories) {
     const $story = generateStoryMarkup(story, true, true);
     $myStories.prepend($story);
 
   }
-
-  if (currentUser.ownStories.length === 0) {
-    $myStories.text("No stories added by user yet!");
-  }
-
+ 
   $myStories.show();
 
 }

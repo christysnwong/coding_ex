@@ -36,6 +36,8 @@ async function login(evt) {
 
     if (statusCode >= 400 || statusCode < 500) {
       alert("Incorrect username/password combination.");
+    } else {
+      alert("An error has occured.");
     }
 
   }
@@ -212,16 +214,24 @@ function editUserCancel(evt) {
 $editUserNameForm.on("click", ".cancel", editUserCancel);
 
 
+// [CW] add observer to the last element of the story list
+// if the page is scrolled to the bottom and shows the last element, it will load more stories
+
 function addObserver() {
-  // experiment Intersection Observer
+
+  const lastStory = document.querySelector("#all-stories-list").lastChild;
 
   const observer = new IntersectionObserver(function(entries) {
     if(entries[0].isIntersecting === true) {
+
+      // gets more stories from the API
       getAndShowMoreStories();
     }
       
   }, { threshold: [1] });
 
-  observer.observe(document.querySelector("#all-stories-list").lastChild);
-  
+  observer.observe(lastStory);
+
 }
+
+  
