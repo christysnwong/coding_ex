@@ -1,0 +1,10 @@
+# pet animals
+
+cat
+parrot
+dog
+
+# farm animals
+
+cow
+pig
