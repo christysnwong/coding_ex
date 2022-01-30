@@ -42,13 +42,13 @@ def sum_up_diagonals(matrix):
     # answer key
     # ===========
 
-    total = 0
+    # total = 0
 
-    for i in range(len(matrix)):
-        total += matrix[i][i]
-        total += matrix[i][-1 - i]
+    # for i in range(len(matrix)):
+    #     total += matrix[i][i]
+    #     total += matrix[i][-1 - i]
 
-    return total
+    # return total
 
-    or
-    return sum([matrix[i][i] + matrix[i][-1 - i] for i in range(len(matrix))])
+    # or
+    # return sum([matrix[i][i] + matrix[i][-1 - i] for i in range(len(matrix))])
