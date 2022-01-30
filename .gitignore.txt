@@ -1,0 +1,3 @@
+unit18.4_python_oo/__pycache__/
+unit19.1_flask-greet-calc/venv/
+unit19.1_flask-greet-calc/__pycache__/
