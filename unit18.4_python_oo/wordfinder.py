@@ -24,16 +24,15 @@ class WordFinder:
     def __init__(self, filename):
         """return # of words read from file"""
 
-        file = open(filename)
-
-        self.word_list = self.read_file(file)
+        self.word_list = self.read_file(filename)
 
         print(f"{len(self.word_list)} words read")
 
-    def read_file(self, file):
+    def read_file(self, filename):
         """read file and get a list of words"""
 
-        return [line.strip() for line in file]
+        with open(filename, "r") as file:
+            return [line.strip() for line in file]
 
     def random(self):
         """get a random word from the list of words"""
@@ -60,8 +59,9 @@ class RandomWordFinder(WordFinder):
         
     """
 
-    def read_file(self, file):
+    def read_file(self, filename):
         """read file and get a list of words, skipping # comments or blanks"""
 
-        return [line.strip() for line in file if line[0] != "#" and line.strip()]
+        with open(filename, "r") as file:
+            return [line.strip() for line in file if line[0] != "#" and line.strip()]
 
