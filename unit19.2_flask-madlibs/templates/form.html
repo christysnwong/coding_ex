@@ -1,0 +1,20 @@
+{% extends 'base.html'  %}
+{% block title %}Madlibs Form{% endblock %}
+
+{% block content %}
+
+<h4>Fill in the form below to create your own story!</h4>
+
+<form action="/story">
+    {% for word in words %}
+    <p>
+        <label for={{word}}>{{word.capitalize()}}:</label>
+        <input id={{word}} type="text" name={{word}} required>
+    </p>
+    {% endfor %}
+    <input type="hidden" name="story_id" value="{{story_id}}">
+    <button>Build Story</button>
+
+</form>
+
+{% endblock %}
