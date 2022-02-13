@@ -1,0 +1,23 @@
+{% extends 'base.html'  %}
+{% block title %}Boggle Game{% endblock %}
+
+{% block content %}
+
+<h3>Welcome to My Boggle Game! Click the button below to begin.</h3>
+
+<form action="/board">
+
+    Select the size of board:
+    <select name="board-size" id="board-size">
+        <option value="4" selected="selected">4 x 4</option>
+        <option value="5">5 x 5</option>
+        <option value="6">6 x 6</option>
+        <option value="7">7 x 7</option>
+        <option value="8">8 x 8</option>
+    </select>
+    <button>Start!</button>
+</form>
+
+
+
+{% endblock %}

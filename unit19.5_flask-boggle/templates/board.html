@@ -1,0 +1,54 @@
+{% extends 'base.html'  %}
+{% block title %}Boggle Game{% endblock %}
+
+{% block content %}
+
+<div id="header">
+    <div class="info">
+        SCORE: <span id="score"></span>
+    </div>
+    <div class="info">
+        BEST SCORE: <span id="best-score">{{bestscore}}</span>
+    </div>
+    <div class="info">
+        TIMER: <span id="timer"></span> sec
+    </div>
+</div>
+
+
+
+<table id="board" class="{{board_size}}">
+    {% for row in board %}
+    <tr>
+        {% for cell in row %}
+        <td>{{cell}}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+
+
+<p>
+    <form id="guess-form">
+        <label for="guess">What word(s) can you find?</label>
+        <input id="guess" type="text" name="guess">
+
+        <button>Enter!</button>
+    </form>
+
+</p>
+<hr>
+<p id="msg">
+    You have played {{numplays}} times.
+    <hr>
+    <ul id="user-words">
+    </ul>
+</p>
+<p class="reset">
+    <form action="/board" id="reset-form">
+        <input id="reset" type="submit" value="Reset">
+    </form>
+</p>
+
+
+{% endblock %}

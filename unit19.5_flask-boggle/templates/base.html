@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="/static/app.css">
+        <title>{% block title %} {% endblock %}</title>
+    </head>
+
+
+    <body>
+        <h1><a href="/" class="title">My Boggle Game</a></h1>
+        
+        <main id="content">
+            {% block content %} {% endblock %}
+        </main>
+
+        <script src="https://unpkg.com/jquery"></script>
+        <script src="https://unpkg.com/axios/dist/axios.js"></script>
+        <script src="/static/app.js"></script>
+    </body>
+
+</html>
