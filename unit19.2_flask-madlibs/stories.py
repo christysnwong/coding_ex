@@ -60,7 +60,7 @@ story3 = Story(
     "bunny",
     "A bunny story",
     ["bunny_name", "adjective", "fun_event", "noun"],
-    """Once there was bunny named {bunny_name}. He was {adjective} and nobody liked him.
+    """Once there was a bunny named {bunny_name}. He was {adjective} and nobody liked him.
        One day there was a {fun_event} and the {adjective} bunny won. 
        He got a {noun} and then everybody liked {bunny_name}. 
        He made lots of new friends and lived happily ever after."""

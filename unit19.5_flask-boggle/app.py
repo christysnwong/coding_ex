@@ -7,7 +7,7 @@ boggle_game = Boggle()
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = "bunbun123"
-debug = DebugToolbarExtension(app)
+# debug = DebugToolbarExtension(app)
 
 
 @app.route('/')
