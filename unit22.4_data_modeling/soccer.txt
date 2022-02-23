@@ -1,0 +1,49 @@
+League
+----
+Id PK int
+Start_Date string
+End_date string
+
+
+Goal
+----
+Id PK int
+Game_Id int FK >- Game.Id
+Player_Id int FK >- Player.Id
+Team_Id int FK >- Team.Id
+
+
+Team
+----
+Id PK int
+Name string
+
+
+Player
+----
+Id PK int
+Name string
+Team_Id int FK >- Team.Id
+
+Ref
+----
+Id PK int
+Name string
+
+Game
+---- 
+Id PK int
+League_Id int FK >- League.Id
+Date string
+Team1_Id int FK >- Team.Id
+Team2_Id int FK >- Team.Id
+Ref1_Id int FK >- Ref.Id
+Ref2_Id int FK >- Ref.Id
+
+
+Game_Results
+----
+Id PK int
+Game_Id int FK >- Game.Id
+Team_Id int FK >- Team.Id
+Score int
