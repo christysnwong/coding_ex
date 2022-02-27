@@ -25,7 +25,7 @@ def home_page():
 @app.route('/users')
 def list_users():
     """Shows list of all users in db"""
-    users = User.query.all()
+    users = User.query.order_by(User.last_name, User.first_name).all()
     return render_template('users.html', users=users)
 
 @app.route('/users/new')
@@ -40,8 +40,21 @@ def create_user():
     last_name = request.form["last_name"]
     
     # img_url = request.form.get('img_url', None)
-    img_url = request.form["img_url"]
+    # request.form.get() will return an empty string for 'img_url' 
+    # None won't kick in and a default image won't be set
+
+    # 1st method
+    # img_url = request.form["img_url"]
+    # img_url = img_url if img_url else None
+    # creates a keyerror when running the "$ python -m unittest test_flask.py"
+
+    # 2nd method
+    img_url = request.form.get('img_url')
     img_url = img_url if img_url else None
+
+    # 3rd method from answer key
+    # img_url=request.form['img_url'] or None
+    # creates a keyerror when running the "$ python -m unittest test_flask.py"
 
     user = User(first_name=first_name, last_name=last_name, image_url=img_url)
     db.session.add(user)
@@ -68,8 +81,9 @@ def edit_user(user_id):
 
     user.first_name = request.form["first_name"]
     user.last_name = request.form["last_name"]
-    img_url = request.form["img_url"]
+    img_url = request.form.get('img_url')
     user.img_url = img_url if img_url else None
+
 
     db.session.add(user)
     db.session.commit()
