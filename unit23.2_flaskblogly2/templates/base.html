@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.css">
+        <title>{% block title %} {% endblock %}</title>
+    </head>
+
+
+    <body>
+        
+        <div class="container">
+            <main id="content">
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                <section class="messages">
+                    {% for category, msg in messages %}
+                    <p class="{{category}}">{{msg}}</p>
+                    {% endfor  %}
+                 </section>
+                {% endif %}
+                {% endwith %}
+
+                {% block content %} {% endblock %}
+            </main>
+    
+
+        </div>
+        
+        
+    </body>
+
+</html>
