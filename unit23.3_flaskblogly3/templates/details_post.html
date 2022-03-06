@@ -1,0 +1,38 @@
+{% extends 'base.html'  %}
+{% block title %}User's Post Detail Page{% endblock %}
+
+{% block content %}
+
+<h1>{{ post.title }}</h1>
+
+<p>{{ post.content }}</p>
+
+<p>By <a href="/users/{{ post.user_id }}">{{ post.user.full_name }}</a></p>
+
+<p>
+  <b>Tags</b>
+  {% if not tags %}None{% endif %} 
+  {% for tag in tags %}
+        <a href="/tags/{{ tag.id }}"><i class="badge bg-primary">{{ tag.name }} </i></a>
+  {% endfor %}
+  
+</p>
+
+<form>
+    <button class="btn btn-secondary"
+            formaction="/"
+            formmethod="GET">Homepage</button>
+
+    <button class="btn btn-primary"
+            formaction="/posts/{{ post.id }}/edit"
+            formmethod="GET">Edit
+    </button>
+
+    <button class="btn btn-danger"
+            formaction="/posts/{{ post.id }}/delete"
+            formmethod="POST">Delete
+    </button>
+</form>
+
+
+{% endblock %}
