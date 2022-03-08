@@ -54,7 +54,8 @@ class Post(db.Model):
                     nullable=False)
     content = db.Column(db.Text,
                     nullable=False)
-    created_at = db.Column(db.Text,
+    # created_at = db.Column(db.Text,
+    created_at = db.Column(db.DateTime,
                     nullable=False,
                     default=datetime.now)
     user_id = db.Column(db.Integer,
@@ -71,12 +72,13 @@ class Post(db.Model):
     def friendly_date(self):
         """Return formatted date."""
 
-        # print("##########")
-        # print(type(self.created_at))
-        # print("##########")
+        print("##########")
+        print(type(self.created_at))
+        print("##########")
 
-        x = datetime.strptime(self.created_at, '%Y-%m-%d %H:%M:%S.%f')
-        return x.strftime("%B %-d %Y, %-I:%M %p")
+        # x = datetime.strptime(self.created_at, '%Y-%m-%d %H:%M:%S.%f')
+        # return x.strftime("%B %-d %Y, %-I:%M %p")
+        return self.created_at.strftime("%a %b %-d  %Y, %-I:%M %p")
         
         
 class Tag(db.Model):
