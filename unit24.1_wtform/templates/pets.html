@@ -1,0 +1,57 @@
+{% extends 'base.html'  %}
+{% block title %}Pets{% endblock %}
+
+{% block content %}
+
+<h1 class="display-3">Pets Adoption Agency</h1>
+
+<a href="/add"><button type="button" class="btn btn-primary">Add a Pet!</button></a>
+<hr>
+
+{% if not pets %} 
+<p>No pets are available. Please check again later.</p>
+{% endif %}
+
+<h3 class="display-6">Available Pets</h3>
+<div class="row">
+{% for pet in pets %} 
+    {% if pet.available %}
+    <div class="col-4 my-5">
+        
+        <p>
+            <img src="{{ pet.image_url }}" alt="{{ pet.name }}" width="300px" height="220px">
+         </p>
+       
+        <p>
+            <a href="/{{pet.id}}"><span class="text-success">{{ pet.name }}</span></a>
+            <b class="text-secondary">is available!</b>
+        </p>
+    </div>
+
+    {% endif %}
+
+{% endfor %}
+</div>
+
+<h3 class="display-6">Unavailable Pets</h3>
+<div class="row">
+{% for pet in pets %} 
+    {% if not pet.available %}
+    <div class="col-4 my-5">
+        <p>
+            <img src="{{ pet.image_url }}" alt="{{ pet.name }}" width="300px" height="250px">
+        </p>
+        <p>
+            <a href="/{{pet.id}}"><span class="text-success">{{ pet.name }}</span></a>
+            <b class="text-secondary">is no longer available!</b>
+        </p>
+    </div>
+
+    {% endif %}
+
+{% endfor %}
+</div>
+
+
+
+{% endblock %}
