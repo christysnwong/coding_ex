@@ -15,14 +15,12 @@ connect_db(app)
 
 @app.route('/')
 def index_page():
-    """Renders html template that includes some JS - NOT PART OF JSON API!"""
+    """Renders html template """
     cupcakes = Cupcake.query.all()
     return render_template('index.html', cupcakes=cupcakes)
 
 
-# *****************************
-# RESTFUL TODOS JSON API
-# *****************************
+
 @app.route('/api/cupcakes')
 def list_cupcakes():
     """Returns JSON w/ all cupcakes"""
