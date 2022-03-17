@@ -1,0 +1,72 @@
+{% extends 'base.html'  %}
+
+{% block content %}
+
+{% if session['username'] == user.username %}
+
+    <h1>User's Info</h1>
+
+    <p>
+        Username: {{ user.username }}
+    </p>
+
+    <p>
+        Email: {{ user.email }}
+    </p>
+
+    <p>
+        First Name: {{ user.first_name }}
+    </p>
+
+    <p>
+        Last Name: {{ user.last_name }}
+    </p>
+
+    <form>
+        <button class="btn btn-danger"
+                formaction="/users/{{ user.username }}/delete"
+                formmethod="POST">Delete User
+        </button>
+        <button class="btn btn-primary"
+            formaction="/users/{{ user.username }}/feedback/add"
+            formmethod="GET">Add Feedback
+    </button>
+    </form>
+
+    <hr>
+    <h1>User's Feedback</h1>
+
+    {% for feedback in feedbacks %}
+        <div class="card my-4">
+            <div class="card-body">
+                <h5 class="card-title text-info">
+                    {{feedback.title}}
+                    
+                </h5>
+
+                </h6>
+                <p class="card-text">
+                    {{feedback.content}}
+                </p>
+                
+                <form style="display:inline;" action="/feedback/{{ feedback.id }}/delete" method="POST">
+                    <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                    <a href="/feedback/{{ feedback.id }}/update" class="btn btn-sm btn-info"><i class="fas fa-pen-alt"></i></a>
+
+                </form>
+
+                
+                
+
+            </div>
+        </div>
+    {% endfor %}
+
+{% else %}
+    <p>Sorry! You are not authorized to view this uer's info.</p>
+
+{% endif %}
+
+
+
+{% endblock %}
