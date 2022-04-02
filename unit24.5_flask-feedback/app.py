@@ -107,7 +107,7 @@ def logout_user():
     # session.pop('user_id')
     session.pop('username')
     flash("Goodbye!", "info")
-    return redirect('/')
+    return redirect('/login')
 
 @app.route('/users/<username>')
 def show_user_info(username):
