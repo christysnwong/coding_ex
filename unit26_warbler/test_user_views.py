@@ -148,6 +148,7 @@ class UserViewTestCase(TestCase):
             db.session.commit()
 
             resp = c.post("/messages/9999/like", follow_redirects=True)
+
             self.assertEqual(resp.status_code, 200)
 
             self.assertIn("Access unauthorized", str(resp.data))
