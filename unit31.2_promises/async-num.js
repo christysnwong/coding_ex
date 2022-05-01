@@ -6,7 +6,7 @@
 
 // Question 2
 // let factsPromises = []
-// favNums = [12, 33, 45]
+// let favNums = [12, 33, 45]
 
 // for (let i = 0; i < favNums.length; i++) {
 //   factsPromises.push(
@@ -38,3 +38,5 @@ Promise.all(factsPromises)
   })
   .catch(err => console.log(err));
   
+
+
