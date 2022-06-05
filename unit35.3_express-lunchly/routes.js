@@ -142,7 +142,7 @@ router.post("/:id/add-reservation/", async function(req, res, next) {
 
 router.get("/:id/edit-reservation/:rid", async function(req, res, next) {
   try {
-    const costomerId = req.params.id;
+    const customerId = req.params.id;
     const reservation = await Reservation.get(req.params.rid);
 
     res.render("reservation_edit_form.html", { reservation });
@@ -166,6 +166,8 @@ router.post("/:id/edit-reservation/:rid", async function(req, res, next) {
     return next(err);
   }
 });
+
+/** Handle deleting a reservation */
 
 router.post("/:id/delete-reservation/:rid", async function(req, res, next) {
   try {

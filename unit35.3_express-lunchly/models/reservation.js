@@ -52,6 +52,17 @@ class Reservation {
     return this._customerId;
   }
 
+  /** setting/getting startAt */ 
+
+  set startAt(val) {
+    if (val instanceof Date && !isNaN(val)) this._startAt = val;
+    else throw new Error("Not a valid startAt.");
+  }
+
+  get startAt() {
+    return this._startAt;
+  }
+
   /** formatter for startAt */
 
   get formattedStartAt() {
