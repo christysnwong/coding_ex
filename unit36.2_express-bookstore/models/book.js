@@ -11,6 +11,7 @@ class Book {
    **/
 
   static async findOne(isbn) {
+    
     const bookRes = await db.query(
         `SELECT isbn,
                 amazon_url,
