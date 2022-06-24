@@ -1,0 +1,15 @@
+.Pokedex {
+    background-color: white;
+    margin: auto;
+}
+
+.Pokedex-title {
+    text-align: center;
+    color: grey;
+}
+
+
+.Pokedex-content {
+    text-align: center;
+    /* margin: auto; */
+}
