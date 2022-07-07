@@ -27,8 +27,8 @@ import "./Board.css";
  *
  **/
 
-function Board({ nrows=5, ncols=5, chanceLightStartsOn=0.7 }) { 
-  const [board, setBoard] = useState(createValidBoard());
+function Board({ nrows=5, ncols=5, chanceLightStartsOn=0.5 }) { 
+  const [board, setBoard] = useState(createValidBoard);
 
   
   /** create a board nrows high/ncols wide, each cell randomly lit or unlit */
@@ -39,7 +39,7 @@ function Board({ nrows=5, ncols=5, chanceLightStartsOn=0.7 }) {
     for (let y = 0; y < ncols; y++) {
       initialBoard.push(
         Array.from({ length: nrows }, (v) =>
-          Math.random() < chanceLightStartsOn ? false : true
+          Math.random() < chanceLightStartsOn ? true : false
         )
       );
     }
@@ -47,25 +47,27 @@ function Board({ nrows=5, ncols=5, chanceLightStartsOn=0.7 }) {
     console.log("init", initialBoard);
     
     return initialBoard;
-    
 
   }
 
-  // create a valid board that has solution available
+  // create a valid 5x5 board that has solution available
+  // ignores other sizes of board
   function createValidBoard() {
     let validBoard = createBoard();
 
-    while (isSolveable(validBoard) === false) {
-      validBoard = createBoard();
+    if (validBoard.length === 5) {
+      while (isSolveable(validBoard) === false) {
+        validBoard = createBoard();
+      }
     }
-
+    
     return validBoard;
   }
   
   // set winning condition
   function hasWon() {
     // TODO: check the board in state to determine whether the player has won.
-    return board.every(subArr => subArr.indexOf(false) === -1 );
+    return board.every(subArr => subArr.indexOf(true) === -1 );
     
   }
 
@@ -116,22 +118,24 @@ function Board({ nrows=5, ncols=5, chanceLightStartsOn=0.7 }) {
   
   function isSolveable(initialBoard) {
     
-    // can only be one of the 7 possible patterns for the bottom row after initial light chase down
+    // can only be one of the 8 possible patterns for the bottom row after initial light chase down
     let solveableBtmRows = [
-      [false, false, false, true, true],
-      [false, false, true, false, false],
-      [false, true, false, false, true],
-      [false, true, true, true, false],
-      [true, false, false, true, false],
-      [true, false, true, false, true],
-      [true, true, false, false, false],
+      [true, true, true, false, false],
+      [true, true, false, true, true],
+      [true, false, true, true, false],
+      [true, false, false, false, true],
+      [false, true, true, false, true],
+      [false, true, false, true, false],
+      [false, false, true, true, true],
+      [false, false, false, false, false],
     ];
 
     let boardCopy = initialBoard.map((subArr) => [...subArr]);
 
+    // chase down the lights from the top until the bottom row is left to be solved
     for (let y = 0; y < nrows - 1; y++) {
       for (let x = 0; x < ncols; x++) {
-        if (!boardCopy[y][x]) {
+        if (boardCopy[y][x]) {
           boardCopy = flipCells(y + 1, x, boardCopy);
         }
       }
@@ -139,6 +143,8 @@ function Board({ nrows=5, ncols=5, chanceLightStartsOn=0.7 }) {
 
     console.log("btm row after chase down", boardCopy[nrows - 1]);
 
+    // compare bottom row with one of the solveable bottom row configurations
+    // if matches, it returns true, otherwise false
     for (let row of solveableBtmRows) {
       if (row.every((val, idx) => val === boardCopy[nrows - 1][idx])) {
         console.log("solveable");
