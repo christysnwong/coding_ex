@@ -6,42 +6,61 @@ function CoinContainer(props) {
   // customize the # of coins, can set more than 1 coin
   let numCoins = 4;
 
-  const [coins, setCoins] = useState([]);
+  // const [coins, setCoins] = useState([]);
+  const [coins, setCoins] = useState(Array.from({length: numCoins}));
   const [headCount, setHeadCount] = useState(0);
   const [tailCount, setTailCount] = useState(0);
 
+  // const flipCoins = () => {
+  //   let newCoins = [];
+
+  //   for (let i = 0; i < numCoins; i++) {
+  //     const randIdx = Math.floor(Math.random() * 2);
+  //     let newCoin = props.coins[randIdx];
+
+  //     if (newCoin.side === "head") {
+  //       setHeadCount((headCount) => headCount + 1);
+  //     } else {
+  //       setTailCount((tailCount) => tailCount + 1);
+  //     }
+
+  //     newCoins.push(newCoin);
+  //   }
+    
+  //   setCoins(newCoins);
+    
+  // };
+
+
+  // refactor with map
   const flipCoins = () => {
-    let newCoins = [];
-
-    for (let i = 0; i < numCoins; i++) {
-      const randIdx = Math.floor(Math.random() * 2);
-      let newCoin = props.coins[randIdx];
-
-      if (newCoin.side === "head") {
-        setHeadCount((headCount) => headCount + 1);
-      } else {
-        setTailCount((tailCount) => tailCount + 1);
-      }
-
-      newCoins.push(newCoin);
-    }
-    
-    setCoins(newCoins);
-    
-  };
+    setCoins(coins => (
+      coins.map(() => {
+        let newCoin = props.coins[Math.floor(Math.random() * 2)];
+        if (newCoin.side === "head") {
+          setHeadCount((headCount) => headCount + 1);
+        } else {
+          setTailCount((tailCount) => tailCount + 1);
+        }
+        return newCoin;
+      })
+    ))
+  }
 
   const reset = () => {
     setCoins([]);
     setHeadCount(0);
     setTailCount(0);
   }
+
+  
   
 
   return (
     <div className="CoinContainer">
       <h2>Let's flip coin(s)!</h2>
 
-      {coins.map((c, idx) => (
+      {coins[0] && coins.map((c, idx) => (
         <Coin key={idx} side={c.side} src={c.src} />
       ))}
 
