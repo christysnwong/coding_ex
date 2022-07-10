@@ -1,0 +1,9 @@
+.VendingMachine img {
+    width: 700px;
+}
+
+.VendingMachine a {
+    display: block;
+    text-decoration: none;
+}
+
