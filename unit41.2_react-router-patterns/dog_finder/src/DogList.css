@@ -1,0 +1,22 @@
+.DogList {
+    text-align: center;
+    
+}
+
+.DogList a {
+    text-decoration: none;
+}
+
+.DogList a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.DogList img {
+    width: 300px;
+}
+
+.DogList div {
+    display: inline-block;
+    padding: 20px;
+}

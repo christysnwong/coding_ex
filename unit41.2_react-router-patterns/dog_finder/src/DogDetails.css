@@ -1,0 +1,11 @@
+.DogDetails {
+    text-align: center;
+}
+
+.DogDetails li {
+    list-style: none;
+}
+
+.DogDetails img {
+    width: 400px;
+}

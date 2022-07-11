@@ -1,0 +1,27 @@
+.Nav {
+    text-align: center;
+    background-color: aquamarine;
+    padding: 20px;
+    margin: 0;
+}
+
+
+.Nav li {
+    display: inline;
+    list-style: none;
+    padding-right: 20px;
+}
+
+.Nav a {
+    text-decoration: none;
+    color: grey;
+    font-weight: bold;
+}
+
+.Nav a:hover {
+    color: black;
+}
+
+.Nav a.active {
+    color: black;
+}
