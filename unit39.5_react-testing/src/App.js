@@ -6,8 +6,8 @@ import CoinContainer from "./CoinContainer";
 function App() {
   return (
     <div className="App">
-      <Carousel /> 
-      {/* <CoinContainer /> */}
+      {/* <Carousel />  */}
+      <CoinContainer />
     </div>
   );
 }
