@@ -7,7 +7,7 @@ const DogDetails = (props) => {
     const dog = props.dogs.filter((dog) => dog.name.toLowerCase() === name)[0];
 
     if (!dog) {
-        <Redirect to="/dogs" />
+        return <Redirect to="/dogs" />;
     }    
 
     return (
