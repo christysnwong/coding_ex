@@ -8,22 +8,26 @@ import JoblyApi from './api';
 import UserContext from './UserContext';
 import jwt from "jsonwebtoken";
 import useLocalStorage from './useLocalStorage';
-
+// import LoadingSpinner from "./LoadingSpinner";
 
 function App() {
-  const [currUser, setCurrUser] = useState(null);
+  // const [infoLoaded, setInfoLoaded] = useState(false);
+  // const [currUser, setCurrUser] = useState(null);
+  const [currUser, setCurrUser] = useLocalStorage("jobly-user");
   // const [token, setToken] = useState(JSON.parse(localStorage.getItem("joblyToken") || null));
   const [token, setToken] = useLocalStorage("jobly-token");
   const [jobIds, setJobIds] = useState([]);
   const history = useHistory();
 
   console.debug("App - beginning check for token", token);
+  console.debug("App - beginning check for saved user", currUser);
 
   // Log in a user
   const login = async (userData) => {
     try {
       let token = await JoblyApi.login(userData);
       setToken(token);
+      console.log("App - login set token");
       // localStorage.setItem("joblyToken", JSON.stringify(token));
       history.push("/");
 
@@ -98,19 +102,28 @@ function App() {
         }
         
       }
+
+      // setInfoLoaded(true);
     }
 
+    // setInfoLoaded(false);
+
     getCurrUser();
-    console.debug("App - useEffect check - got token and currUser?");
+    
 
-  }, [token])
+  }, [token, setCurrUser])
 
+  // if (!infoLoaded) {
+  //   console.log("App - Loading Info...");
+  //   return <LoadingSpinner />;
+  // } 
 
   return (
     <UserContext.Provider
       value={{ currUser, setCurrUser, isJobApplied, applyJob }}
     >
       <div className="App">
+        {console.log("App - Rendered Component...")}
         <NaviBar logout={logout} />
         <Routes
           apply={applyJob}
