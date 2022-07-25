@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./SearchForm.css";
 
 const SearchForm = ({ searchForCompanies, searchForJobs }) => {
   const [query, setQuery] = useState("");
@@ -17,17 +18,18 @@ const SearchForm = ({ searchForCompanies, searchForJobs }) => {
   };
 
   return (
-    <div>
+    <div className="SearchForm mb-4">
       {console.debug("SearchForm - Query:", query)}
-      <form onSubmit={handleSubmit}>
+      <form className="form-inline" onSubmit={handleSubmit}>
         <input
           id="query"
           name="query"
+          className="form-control flex-grow-1"
           placeholder="Enter search term"
           value={query}
           onChange={handleChange}
         />
-        <button type="submit">Submit</button>
+        <button type="submit" className="btn btn-primary">Submit</button>
       </form>
     </div>
   );

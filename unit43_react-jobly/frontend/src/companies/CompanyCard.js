@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-
+import "./CompanyCard.css";
 
 const CompanyCard = ({ company }) => {
   let logoLink;
@@ -10,13 +10,15 @@ const CompanyCard = ({ company }) => {
   
 
   return (
-    <div>
+    <div className="CompanyCard card">
       <NavLink to={`companies/${company.handle}`}>
-        {logoLink && (
-          <img src={logoLink} alt={`${company.handle}-logo`} />
-        )}
-        <h4>{company.name}</h4>
-        <p>{company.description}</p>
+        <div className="card-body">
+          <h6 className="card-title">
+            {company.name}
+            {logoLink && <img src={logoLink} alt={`${company.handle}-logo`} className="float-end ms-5" />}
+          </h6>
+          <p>{company.description}</p>
+        </div>
       </NavLink>
     </div>
   );

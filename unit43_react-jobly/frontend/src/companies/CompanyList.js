@@ -1,6 +1,6 @@
-import { useState, useEffect, useContext } from "react";
-import UserContext from "../UserContext";
-import { Redirect } from "react-router-dom";
+import { useState, useEffect } from "react";
+// import UserContext from "../UserContext";
+// import { Redirect } from "react-router-dom";
 
 import JoblyApi from "../api";
 import CompanyCard from "./CompanyCard";
@@ -9,7 +9,7 @@ import "./CompanyList.css"
 
 const CompanyList = () => {
   const [companies, setCompanies] = useState([]);
-  const { currUser } = useContext(UserContext);
+  // const { currUser } = useContext(UserContext);
 
   const searchForCompanies = async (name) => {
     let companyList = await JoblyApi.getCompanies(name);
@@ -27,13 +27,16 @@ const CompanyList = () => {
 
 
   return (
-    <div className="CompanyList">
+    <div className="CompanyList col-md-8 offset-md-2">
       <SearchForm searchForCompanies={searchForCompanies} />
 
       {companies.map((company) => (
         <div key={company.handle}>
-          <CompanyCard id={company.handle} key={company.handle} company={company} />
-          <hr />
+          <CompanyCard
+            id={company.handle}
+            key={company.handle}
+            company={company}
+          />
         </div>
       ))}
     </div>

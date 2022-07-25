@@ -7,7 +7,7 @@ import UserContext from "../UserContext";
 const CompanyDetail = ({apply}) => {
   const [company, setCompany] = useState("");
   const { handle } = useParams();
-  const { currUser, applyJob, isJobApplied } = useContext(UserContext);
+  const { currUser } = useContext(UserContext);
 
   
   useEffect(() => {
@@ -24,7 +24,7 @@ const CompanyDetail = ({apply}) => {
   // }
 
   return (
-    <div>
+    <div className="CompanyDetail col-md-8 offset-md-2">
       <h4>{company.name}</h4>
       <p>{company.description}</p>
       {company.jobs &&
@@ -37,13 +37,8 @@ const CompanyDetail = ({apply}) => {
               salary={job.salary}
               equity={job.equity}
             />
-            <button
-              onClick={() => applyJob(job.id)}
-              disabled={isJobApplied(job.id)}
-            >
-              {isJobApplied(job.id) ? "Applied" : "Apply"}
-            </button>
-            <hr></hr>
+            
+            
           </div>
         ))}
     </div>

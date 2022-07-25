@@ -18,7 +18,7 @@ const Routes = ({login, signup}) => {
   );
   
   return (
-    <div>
+    <div className="pt-5">
       <Switch>
         <Route exact path="/">
           <Home />

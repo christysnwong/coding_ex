@@ -27,7 +27,7 @@ const JobList = () => {
   
 
   return (
-    <div>
+    <div className="JobList col-md-8 offset-md-2">
       
       <SearchForm searchForJobs={searchForJobs} />
       {jobs.map((job) => (
@@ -40,10 +40,7 @@ const JobList = () => {
             salary={job.salary}
             equity={job.equity}
           />
-          <button onClick={() => applyJob(job.id)} disabled={isJobApplied(job.id)}>
-            {isJobApplied(job.id) ? "Applied" : "Apply"}
-          </button>
-          <hr></hr>
+          
         </div>
       ))}
     </div>

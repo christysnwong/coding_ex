@@ -52,57 +52,74 @@ const ProfileEditForm = () => {
   }
 
   return (
-    <div>
-      
-      <h2>Profile</h2>
-      <form onSubmit={handleSubmit}>
-        <p>
-          <label htmlFor="username">Username: </label>
-          {currUser.username}
-        </p>
+    <div className="col-md-6 col-lg-4 offset-md-3 offset-lg-4">
+      <h3>Profile</h3>
+      <div className="card">
+        <div className="card-body">
+          <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <label htmlFor="username" className="form-label">
+                Username:{" "}
+              </label>
+              <p className="form-control-plaintext">{currUser.username}</p>
+            </div>
 
-        <p>
-          <label htmlFor="firstName">First Name</label>
-          <input
-            id="firstName"
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleChange}
-          />
-        </p>
+            <div className="mb-3">
+              <label htmlFor="firstName" className="form-label">
+                First Name
+              </label>
+              <input
+                id="firstName"
+                name="firstName"
+                className="form-control"
+                value={formData.firstName}
+                onChange={handleChange}
+              />
+            </div>
 
-        <p>
-          <label htmlFor="lastName">Last Name</label>
-          <input
-            id="lastName"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleChange}
-          />
-        </p>
+            <div className="mb-3">
+              <label htmlFor="lastName" className="form-label">
+                Last Name
+              </label>
+              <input
+                id="lastName"
+                name="lastName"
+                className="form-control"
+                value={formData.lastName}
+                onChange={handleChange}
+              />
+            </div>
 
-        <p>
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-        </p>
+            <div className="mb-3">
+              <label htmlFor="email" className="form-label">
+                Email
+              </label>
+              <input
+                id="email"
+                name="email"
+                className="form-control"
+                value={formData.email}
+                onChange={handleChange}
+              />
+            </div>
 
-        <p>
-          <label htmlFor="password">Confirm password to make changes</label>
-          <input
-            id="password"
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-          />
-        </p>
-        <button>Submit</button>
-      </form>
+            <div className="mb-3">
+              <label htmlFor="password" className="form-label">
+                Confirm password to make changes
+              </label>
+              <input
+                id="password"
+                type="password"
+                name="password"
+                className="form-control"
+                value={formData.password}
+                onChange={handleChange}
+              />
+            </div>
+            <button className="btn btn-primary mt-4">Save</button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };
