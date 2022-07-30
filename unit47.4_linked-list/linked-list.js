@@ -125,7 +125,7 @@ class LinkedList {
 
     // if an array is already empty
     if (this.length === 0) {
-      return "There isn't anything to remove";
+      throw new Error("There isn't anything to remove");
     } 
 
     if (idx === 0) {
