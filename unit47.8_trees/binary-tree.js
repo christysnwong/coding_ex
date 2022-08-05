@@ -18,67 +18,29 @@ class BinaryTree {
 
   minDepth() {
     if (!this.root) return 0;
-    let minDepth = Number.MAX_VALUE;
 
-    let findMinDepth = (currNode, depth = 1) => {
-      // base case
-      if (!currNode.left && !currNode.right) return depth;
-      
-      // normal case
-      if (currNode.left && currNode.right) {
-        // case 1 has both left and right path, search by recursion
-
-        minDepth = Math.min(
-          findMinDepth(currNode.left, depth+1),
-          findMinDepth(currNode.right, depth+1)
-        );
-        
-      } else if (currNode.left && !currNode.right) {
-        // case 2 no right path, find min depth and stop search here
-        minDepth = depth+1;
-
-      } else if (currNode.right && !currNode.left) {
-        // case 3 no left path, find min depth and stop search here;
-        minDepth = depth+1;
-
-      }
-
-      return minDepth;
-    };
+    let findMinDepth = currNode => {
+      if (!currNode) return 0;
+      return (
+        1 + Math.min(findMinDepth(currNode.left), findMinDepth(currNode.right))
+      );
+    }
 
     return findMinDepth(this.root);
+
   }
 
   /** maxDepth(): return the maximum depth of the tree -- that is,
    * the length of the longest path from the root to a leaf. */
 
   maxDepth() {
-    let maxDepth = 0;
-    if (!this.root) return maxDepth;
+    if (!this.root) return 0;
 
-    let findMaxDepth = (currNode, depth = 1) => {
-      // base case
-      if (!currNode.left && !currNode.right) return depth;
-
-      // normal case
-      if (currNode.left && currNode.right) {
-        // case 1 has both left and right path, search by recursion
-        maxDepth = Math.max(
-          findMaxDepth(currNode.left, depth+1),
-          findMaxDepth(currNode.right, depth+1)
-        );
-
-      } else if (currNode.left && !currNode.right) {
-        // case 2 no right path, find max depth from left side
-        maxDepth = findMaxDepth(currNode.left, depth+1);
-
-      } else if (currNode.right && !currNode.left) {
-        // case 3 no left path, find max depth from right side
-        maxDepth = findMaxDepth(currNode.right, depth+1);
-
-      }
-
-      return maxDepth;
+    let findMaxDepth = (currNode) => {
+      if (!currNode) return 0;
+      return (
+        1 + Math.max(findMaxDepth(currNode.left), findMaxDepth(currNode.right))
+      );
     };
 
     return findMaxDepth(this.root);
@@ -318,7 +280,45 @@ module.exports = { BinaryTree, BinaryTreeNode };
 //   return findMinDepth(this.root);
 // }
 
+// 2nd attempt
+
+// minDepth() {
+//   if (!this.root) return 0;
+//   let minDepth = Number.MAX_VALUE;
+
+//   let findMinDepth = (currNode, depth = 1) => {
+//     // base case
+//     if (!currNode.left && !currNode.right) return depth;
+    
+//     // normal case
+//     if (currNode.left && currNode.right) {
+//       // case 1 has both left and right path, search by recursion
+
+//       minDepth = Math.min(
+//         findMinDepth(currNode.left, depth+1),
+//         findMinDepth(currNode.right, depth+1)
+//       );
+      
+//     } else if (currNode.left && !currNode.right) {
+//       // case 2 no right path, find min depth and stop search here
+//       minDepth = depth+1;
+
+//     } else if (currNode.right && !currNode.left) {
+//       // case 3 no left path, find min depth and stop search here;
+//       minDepth = depth+1;
+
+//     }
+
+//     return minDepth;
+//   };
+
+//   return findMinDepth(this.root);
+// }
+
+
 ///////////////////////////////////
+
+// 1st attempt
 
 // maxDepth() {
 //   let maxDepth = 0;
@@ -360,6 +360,41 @@ module.exports = { BinaryTree, BinaryTreeNode };
 
 //   return findMaxDepth(this.root);
 // }
+
+// 2nd attempt
+
+// maxDepth() {
+//   let maxDepth = 0;
+//   if (!this.root) return maxDepth;
+
+//   let findMaxDepth = (currNode, depth = 1) => {
+//     // base case
+//     if (!currNode.left && !currNode.right) return depth;
+
+//     // normal case
+//     if (currNode.left && currNode.right) {
+//       // case 1 has both left and right path, search by recursion
+//       maxDepth = Math.max(
+//         findMaxDepth(currNode.left, depth+1),
+//         findMaxDepth(currNode.right, depth+1)
+//       );
+
+//     } else if (currNode.left && !currNode.right) {
+//       // case 2 no right path, find max depth from left side
+//       maxDepth = findMaxDepth(currNode.left, depth+1);
+
+//     } else if (currNode.right && !currNode.left) {
+//       // case 3 no left path, find max depth from right side
+//       maxDepth = findMaxDepth(currNode.right, depth+1);
+
+//     }
+
+//     return maxDepth;
+//   };
+
+//   return findMaxDepth(this.root);
+// }
+
 
 ///////////////////////////////////
 
